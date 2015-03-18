@@ -40,7 +40,7 @@ for (var i = codes.length - 1; i >= 0; --i) {
 			'rust';
 	var iframe = document.createElement('iframe');
 	iframe.classList.add('code');
-	iframe.setAttribute('src', '/web.html');
+	iframe.setAttribute('src', 'web.html');
 
 	var width = codeTag.getAttribute("width");
 	if (width) iframe.style.width = width;
