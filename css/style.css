@@ -1,3 +1,9 @@
-pre.no-shadow {
+.reveal pre.no-shadow {
   box-shadow: 0px 0px 0px;
+}
+
+.reveal img.no-decorators {
+  background: none;
+  border: none;
+  box-shadow: none;
 }
