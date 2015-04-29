@@ -50,6 +50,61 @@
 
 				<section>
 					<h1>Introduction</h1>
+					<p class="footnote">
+						<span class="asterisk">*</span>
+						In theory. Rust is a work-in-progress and may do anything it likes up to and including eating your laundry.
+					</p>
+				</section>
+				<section>
+					<section>
+						<h1>Ownership & Mutability</h1>
+					</section>
+
+					<section>
+						<h2>Ownership</h2>
+						<p>
+							Rust's compiler statically determines when you need to allocate or deallocate memory, and inserts those calls itself.
+						</p>
+						<code class="live" width="80%" height="350px">
+						use std::mem;
+						struct Point {
+							x: f64,
+							y: f64,
+						}
+						fn main() {
+						  let p = Box::new(Point {x: 2.0, y:3.0}); //allocated in the Heap
+						  let p2 = Point {x: 2.0, y: 3.0}; //allocated in the Stack
+						  
+						  println!("Point p1 ({}, {}) occupies {} bytes in the stack",
+						            p.x, p.y, mem::size_of_val(&p));
+						  println!("Point p2 ({}, {}) occupies {} bytes in the stack",
+						            p2.x, p2.y, mem::size_of_val(&p2));
+						}
+						</code>
+						<p>
+							<blockquote cite="http://doc.rust-lang.org/nightly/book/README.html">
+								&ldquo;To err is to be human, but compilers never forget.&rdquo;
+							</blockquote>
+						</p>
+					</section>
+
+					<section>
+						<h2>"Borrowing"</h2>
+						<code class="live" width="100%" height="350px">
+						fn main() {
+						  let mut _x = vec!["Hello", "world"];
+						  
+						  _x.push("foo");
+
+						  let _y = &_x[0];
+
+						  //_x.push("bar"); //causes an error
+
+						  println!("x: {:?}", _x);
+						}
+						</code>
+					</section>
+
 				</section>
 
 				<section>
@@ -70,9 +125,9 @@
 
 					<code class="live" width="49%" height="300px">
 
-fn main() {
-	println!("{}", 2 + 11);
-}
+					fn main() {
+						println!("{}", 2 + 11);
+					}
 
 					</code>
 				</section>

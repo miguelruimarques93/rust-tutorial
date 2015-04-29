@@ -136,7 +136,7 @@ function activate(editorDiv, result, lang, no_exec) {
     session.setMode("ace/mode/" + lang);
 
     function run() {
-        evaluate(editor, result, session.getValue(), lang, 'master', '0');
+        evaluate(editor, result, session.getValue(), lang, 'nightly', '0');
     }
 
     if (!no_exec) {
