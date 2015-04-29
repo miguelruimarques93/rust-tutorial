@@ -57,11 +57,11 @@
 				</section>
 				<section>
 					<section>
-						<h1>Ownership & Mutability</h1>
+						<h1>Features</h1>
 					</section>
 
 					<section>
-						<h2>Ownership</h2>
+						<h2>Memory Safety</h2>
 						<p>
 							Rust's compiler statically determines when you need to allocate or deallocate memory, and inserts those calls itself.
 						</p>
@@ -89,8 +89,29 @@
 					</section>
 
 					<section>
+						<h2>Ownership</h2>
+						<p>
+							<code class="live" width="80%" height="350px">
+							fn main() {
+								let mut x = Box::new(5);
+
+								add_one(x);
+								//x = add_one(x);
+
+								println!("{}", x);
+							}
+
+							fn add_one(mut num: Box&lt;i32&gt;) -> Box&lt;i32&gt; {
+								*num += 1;
+								num
+							}
+							</code>
+						</p>
+					</section>
+
+					<section>
 						<h2>"Borrowing"</h2>
-						<code class="live" width="100%" height="350px">
+						<code class="live" width="80%" height="350px">
 						fn main() {
 						  let mut _x = vec!["Hello", "world"];
 						  
@@ -103,6 +124,25 @@
 						  println!("x: {:?}", _x);
 						}
 						</code>
+					</section>
+
+					<section>
+						<h2>Borrowing Ownership</h2>
+						<p>
+							<code class="live" width="80%" height="350px">
+							fn main() {
+								let mut x = 5;
+
+								add_one( &mut x);
+
+								println!("{}", x);
+							}
+
+							fn add_one(num: &mut i32) {
+								*num += 1;
+							}
+							</code>
+						</p>
 					</section>
 
 				</section>
