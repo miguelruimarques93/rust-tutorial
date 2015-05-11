@@ -43,21 +43,153 @@
 			<!-- Any section element inside of this container is displayed as a slide -->
 			<div class="slides">
 				<section>
-					<h1>The Rust</h1>	
+					<h1>Rust</h1>	
 					<img class="no-decorators" src="images/rust-logo-512x512.png" width="384" height="384"/>
 					<h2>Programming Language</h2>
 				</section>
 
 				<section>
-					<h1>Introduction</h1>
-					<p class="footnote">
-						<span class="asterisk">*</span>
-						In theory. Rust is a work-in-progress and may do anything it likes up to and including eating your laundry.
-					</p>
+					<section>
+						<h1>Introduction</h1>
+					</section>
+
+<section>
+	<h2> What is Rust? </h2>
+
+	<p>
+		<blockquote cite="http://doc.rust-lang.org/nightly/book/README.html">
+				&ldquo;Rust is a systems programming language that runs blazingly fast, prevents almost all crashes*, and eliminates data races.&rdquo;
+		</blockquote>
+	</p>
+
+</section>
+
+<section>
+	<h2> ... </h2>
+
+	<p class="footnote">
+		<span class="asterisk">*</span>
+		In theory. Rust is a work-in-progress and may do anything it likes up to and including eating your laundry.
+	</p>	
+</section>
+
+					<section>
+						<h2>My first Rust "program"</h2>
+						<code>
+fn greet() -> &'static str {
+    "Hello world!"
+}
+
+fn main() {
+    println!("{}", greet());
+} 
+						</code>
+					</section>
 				</section>
 				<section>
 					<section>
 						<h1>Features</h1>
+					</section>
+
+					<section>
+						<h2>Types</h2>
+
+						<code>
+use std::mem;
+
+fn main() {
+	let x = 3.2; // Infers f64
+	let y: f32 = 3.5;
+	let z = 200 as i16;
+	let w = 8i8;
+
+	println!("sizeof(x) = {}", mem::size_of_val(&x));
+	println!("sizeof(y) = {}", mem::size_of_val(&y));
+	println!("sizeof(z) = {}", mem::size_of_val(&z));
+	println!("sizeof(w) = {}", mem::size_of_val(&w));
+}
+						</code>
+					</section>
+
+					<section>
+						<h2>Pattern Matching</h2>
+
+						<code>						
+fn print_parity(s: &str) {
+   let val = s.parse::&lt;i32&gt;().ok();
+   match val {
+       Some(x) if x % 2 == 0 => println!("{} is an even number", s),
+       Some(_) => println!("{} is an odd number", s),
+       None => println!("'{}' is not a number", s),
+       //_ => panic!("Oops :'(") //Unreachable pattern
+   }
+}
+
+fn main () {  
+ print_parity("3");
+ print_parity("6");
+ print_parity("Potato");
+} 
+						</code>
+					</section>
+
+					<section>
+						<h2>Traits</h2>
+
+						<code>
+trait Animal {
+    fn talk(&self);
+}
+
+struct Dog;
+struct Cat;
+
+impl Animal for Dog {
+    fn talk(&self) { println!("Woof"); }
+}
+
+impl Animal for Cat {
+    fn talk(&self) { println!("Meow"); }
+}
+
+fn main() {
+    let my_cat = Cat;
+    let my_dog = Dog;
+    
+    let mut my_animal: &Animal = &my_cat;
+    
+    my_animal.talk();
+    
+    my_animal = &my_dog;
+    
+    my_animal.talk();
+}
+						</code>
+					</section>
+
+					<section>
+						<h2>Generics</h2>
+
+						<code>
+use std::fmt::Debug;
+
+fn foo&lt;T: Clone, K: Clone + Debug&gt;(x: T, y: K) {
+    x.clone();
+    y.clone();
+    println!("{:?}", y);
+}
+
+fn bar&lt;T, K&gt;(x: T, y: K) where T: Clone, K: Clone + Debug {
+    x.clone();
+    y.clone();
+    println!("{:?}", y);
+}
+
+fn main() {
+    foo("Hello", "world");
+    bar("Hello", "world");
+}
+						</code>
 					</section>
 
 					<section>
@@ -93,17 +225,11 @@
 						<p>
 							<code class="live" width="80%" height="350px">
 							fn main() {
-								let mut x = Box::new(5);
+							    let x = Box::new(5);
 
-								add_one(x);
-								//x = add_one(x);
+								// let y = x; //causes an error
 
-								println!("{}", x);
-							}
-
-							fn add_one(mut num: Box&lt;i32&gt;) -> Box&lt;i32&gt; {
-								*num += 1;
-								num
+							    println!("{}", x);
 							}
 							</code>
 						</p>
@@ -127,7 +253,7 @@
 					</section>
 
 					<section>
-						<h2>Borrowing Ownership</h2>
+						<h2>Mutability</h2>
 						<p>
 							<code class="live" width="80%" height="350px">
 							fn main() {
@@ -146,6 +272,62 @@
 					</section>
 
 				</section>
+
+				<section>
+					<section>
+						<h1>Paradigms</h1>
+					</section>
+
+					<section>
+						<h2>Functional</h2>
+
+						<code class="live" width="80%" height="350px">
+						#![feature(step_by)] // step_by is still new
+						fn main() {
+						  let i = (1..)   //all numbers between 1 and +inf[
+						  .step_by(5)     //visit every 5 elements
+						  //.map(|x| x + 1) //add one to each element
+						  .take(5)        //retrieve first 5 elemnts
+						  //.filter(|x| x % 2 == 1) //filter odd values
+						  .collect::&lt;Vec&lt;_&gt;&gt;() //... and place them in a vector
+						  //.iter().fold(0, |sum, x| sum + x) //sum all the elements
+						  ;
+   
+						  println!("{:?}", i); //print the result
+						}
+						</code>
+					</section>
+
+					<section>
+						<h2>Imperative</h2>
+
+						<code class="live" width="80%" height="350px">
+						#![feature(step_by)] // step_by is still new
+						fn main() {
+						  let mut sum = 0; 
+
+						  for i in (1..).step_by(5).take(5) {
+							let val = i + 1;
+							if val % 2 == 1 {
+								sum += val;
+							}
+						  }
+
+						  println!("{}", sum);
+						}
+						</code>
+					</section>
+
+					<section>
+						<h2>Others</h2>
+
+						<ul>
+							<li>Object Oriented</li>
+							<li>Concurrent Actor</li>
+						</ul>
+					</section>
+				</section>
+			
 
 				<section>
 					<h2>Pretty Code</h2>

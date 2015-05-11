@@ -3,9 +3,6 @@
 var codes = document.getElementsByTagName('code');
 for (var i = codes.length - 1; i >= 0; --i) {
 	var codeTag = codes[i];
-	if (!codeTag.classList.contains('live')) {
-		continue;
-	}
 
 	var code = codeTag.textContent;
 
@@ -24,6 +21,8 @@ for (var i = codes.length - 1; i >= 0; --i) {
 	if (code.substring(0, 2) == '#\n') {
 		code = code.substring(2);
 	}
+
+	code += " ";
 
 	console.log(code);
 
@@ -44,9 +43,11 @@ for (var i = codes.length - 1; i >= 0; --i) {
 
 	var width = codeTag.getAttribute("width");
 	if (width) iframe.style.width = width;
+	else iframe.style.width = "80%";
 
 	var height = codeTag.getAttribute("height");
 	if (height) iframe.style.height = height;
+	else iframe.style.height = "350px";
 
 	codeTag.parentElement.replaceChild(iframe, codeTag);
 	(function(lang, code, no_exec) {
