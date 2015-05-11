@@ -4,7 +4,7 @@
 	<head>
 		<meta charset="utf-8">
 
-		<title>reveal.js - The HTML Presentation Framework</title>
+		<title>Rust Programming Language Tutorial</title>
 
 		<meta name="description" content="A framework for easily creating beautiful presentations using HTML">
 		<meta name="author" content="Hakim El Hattab">
@@ -17,6 +17,8 @@
 		<link rel="stylesheet" href="css/reveal.css">
 		<link rel="stylesheet" href="css/theme/custom-style.css" id="theme">
 		
+		<link rel='shortcut icon' type='image/x-icon' href='/favicon.ico' />
+
 		<!-- Code syntax highlighting -->
 		<link rel="stylesheet" href="lib/css/zenburn.css">
 
@@ -236,7 +238,31 @@ fn main() {
 					</section>
 
 					<section>
-						<h2>"Borrowing"</h2>
+						<h2>Borrowing</h2>
+
+						<p><blockquote cite="http://http://doc.rust-lang.org/nightly/book/references-and-borrowing.html">
+						There is a ‘data race’ when two or more pointers access the same memory location at the same time, where at least one of them is writing, and the operations are not synchronized.
+						</blockquote></p>
+
+					</section>
+
+					<section>
+						<h2>Borrowing - Rules </h2>
+
+						<ul>
+							<li> A borrow must last for a smaller scope than the owner. </li>
+							<li> You must have: 
+								<ul>
+									<li>0 or more references (&T) to a resource.</li>
+									<li>Exactly 1 mutable reference (&mut T)</li>
+								</ul>
+							</li>
+						</ul>
+
+					</section>
+
+					<section>
+						<h2>Borrowing - Example </h2>
 						<code class="live" width="80%" height="350px">
 						fn main() {
 						  let mut _x = vec!["Hello", "world"];
@@ -269,6 +295,18 @@ fn main() {
 							}
 							</code>
 						</p>
+					</section>
+
+					<section>
+						<h2>Other Features</h2>
+
+						<ul>
+							<li> Lifetimes </li>
+							<li> Macros </li>
+							<li> Efficient C Bindings </li>
+							<li> Conditional Compilation </li>
+
+						</ul>
 					</section>
 
 				</section>
@@ -330,30 +368,32 @@ fn main() {
 			
 
 				<section>
-					<h2>Pretty Code</h2>
+					<section>
+						<h1>Tools</h1>
+					</section>
 					
-					<code class="live" width="49%" height="300px">
-					fn increment(n: i32) -&gt; i32 {
-					  n + 1
-					}
+					<section>
+						<h2>Cargo</h2>
+						<h4>Rust's Package Manager</h4>
+						<a href="crates.io">crates.io</a>
+					</section>
 
-					fn main() {
-					  let x = 41;
-					  println!("{} + 1 = {}",
-							   x, increment(x));
+					<section>
+						<h2>Racer</h2>
+						<h4>Rust Auto-Complete-er</h4>
+						<a href="https://github.com/phildawes/racer">github.com/phildawes/racer</a>
+					</section>
 
-					}
-					</code>
-
-					<code class="live" width="49%" height="300px">
-
-					fn main() {
-						println!("{}", 2 + 11);
-					}
-
-					</code>
+					<section>
+						<h2>RustDT</h2>
+						<h4>Eclipse plugin</h4>
+						<a href="https://rustdt.github.io/">rustdt.github.io</a>
+					</section>
 				</section>
 
+				<section>
+					<h1>Questions?</h1>
+				</section>
 			</div>
 
 		</div>
